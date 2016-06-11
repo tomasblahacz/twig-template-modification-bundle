@@ -94,5 +94,5 @@ when using version control system with no changes uncommitted.
 
 ```shell
 composer install
-vendor/bin/codecept run
+vendor/bin/phpunit
 ```
