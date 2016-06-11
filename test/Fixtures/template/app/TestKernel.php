@@ -5,16 +5,19 @@ namespace Fixtures\Maba;
 use Maba\Bundle\TwigTemplateModificationBundle\MabaTwigTemplateModificationBundle;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Fixtures\Maba\Bundle\TestBundle\TestBundle;
 
 class TestKernel extends Kernel
 {
     public function registerBundles()
     {
         $bundles = array(
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Symfony\Bundle\TwigBundle\TwigBundle(),
+            new FrameworkBundle(),
+            new TwigBundle(),
             new MabaTwigTemplateModificationBundle(),
-            new \Fixtures\Maba\Bundle\TestBundle\TestBundle(),
+            new TestBundle(),
         );
         return $bundles;
     }

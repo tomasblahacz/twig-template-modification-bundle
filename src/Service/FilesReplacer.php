@@ -40,7 +40,7 @@ class FilesReplacer
 
             $contents = $this->templateReplacer->getReplacedContents($context);
 
-            if ($noticeCallable !== null && count($context->getNotic/NodeReplaceHelperes()) > 0) {
+            if ($noticeCallable !== null && count($context->getNotices()) > 0) {
                 $noticeCallable($context->getNotices());
             }
 

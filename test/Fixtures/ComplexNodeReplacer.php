@@ -29,16 +29,16 @@ class ComplexNodeReplacer implements TwigNodeReplacerInterface
 
         $body = $node->getNode('body');
 
-        return $this->replaceRecursivelly($body, $body);
+        return $this->replaceRecursively($body, $body);
     }
 
-    protected function replaceRecursivelly(Node $parent, Node $body)
+    protected function replaceRecursively(Node $parent, Node $body)
     {
         foreach ($parent as $index => $node) {
             if ($node instanceof \Twig_Node_Expression_Constant && $node->getAttribute('value') === 'jquery.js') {
                 return $this->nodeReplaceHelper->getReplacedSource($body, $node, 'random()');
             } else {
-                $replaced = $this->replaceRecursivelly($node, $body);
+                $replaced = $this->replaceRecursively($node, $body);
                 if ($replaced !== null) {
                     return $replaced;
                 }

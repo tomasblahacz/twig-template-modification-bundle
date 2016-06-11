@@ -66,6 +66,7 @@ class NodeReplaceHelper
 
     /**
      * @param Node $node
+     * @param string $attribute
      * @return ExtendedToken
      */
     protected function getToken(Node $node, $attribute)

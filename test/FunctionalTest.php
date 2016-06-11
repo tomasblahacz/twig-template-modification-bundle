@@ -3,6 +3,7 @@
 namespace Maba\Tests;
 
 use Composer\Autoload\ClassLoader;
+use Maba\Bundle\TwigTemplateModificationBundle\Service\NodeReplaceHelper;
 use Maba\Tests\Fixtures\ComplexNodeReplacer;
 use Maba\Tests\Fixtures\UppercaseNodeReplacer;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -40,9 +41,11 @@ class FunctionalTest extends KernelTestCase
         $container = static::$kernel->getContainer();
         /** @var ReplacerFactory $factory */
         $factory = $container->get('maba_twig_template_modification.factory.files_replacer');
+        /** @var NodeReplaceHelper $nodeReplaceHelper */
+        $nodeReplaceHelper = $container->get('maba_twig_template_modification.node_replace_helper');
         $this->replacer = $factory->createFilesReplacer([
             new UppercaseNodeReplacer(),
-            new ComplexNodeReplacer($container->get('maba_twig_template_modification.node_replace_helper')),
+            new ComplexNodeReplacer($nodeReplaceHelper),
         ]);
     }
     
