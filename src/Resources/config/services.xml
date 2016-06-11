@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="maba_twig_template_modification.factory.twig_environment"
+                 class="Maba\Bundle\TwigTemplateModificationBundle\Factory\EnvironmentFactory"
+                 public="false">
+            <argument type="service" id="twig"/>
+        </service>
+
+        <service id="maba_twig_template_modification.twig.environment"
+                 class="Twig_Environment"
+                 public="false">
+            <factory service="maba_twig_template_modification.factory.twig_environment" method="createEnvironment"/>
+        </service>
+
+        <service id="maba_twig_template_modification.twig.loader"
+                 class="Twig_LoaderInterface"
+                 public="false">
+            <factory service="maba_twig_template_modification.twig.environment" method="getLoader"/>
+        </service>
+
+        <service id="maba_twig_template_modification.twig.lexer"
+                 class="Twig_Lexer"
+                 public="false">
+            <factory service="maba_twig_template_modification.twig.environment" method="getLexer"/>
+        </service>
+
+        <service id="maba_twig_template_modification.twig.parser"
+                 class="Maba\Bundle\TwigTemplateModificationBundle\Twig\Parser"
+                 public="false">
+            <factory service="maba_twig_template_modification.twig.environment" method="getParser"/>
+        </service>
+
+        <service id="maba_twig_template_modification.node_replace_helper"
+                 class="Maba\Bundle\TwigTemplateModificationBundle\Service\NodeReplaceHelper"/>
+
+        <service id="maba_twig_template_modification.factory.files_replacer"
+                 class="Maba\Bundle\TwigTemplateModificationBundle\Factory\ReplacerFactory">
+            <argument type="service" id="maba_twig_template_modification.twig.loader"/>
+            <argument type="service" id="maba_twig_template_modification.twig.lexer"/>
+            <argument type="service" id="maba_twig_template_modification.twig.parser"/>
+            <argument type="service" id="maba_twig_template_modification.node_replace_helper"/>
+            <argument type="collection">
+                <argument>%kernel.root_dir%/Resources/views</argument>
+                <argument>%kernel.root_dir%/Resources/views/**</argument>
+                <argument>%kernel.root_dir%/../src/{,*/,*/*/}*Bundle/Resources/views</argument>
+                <argument>%kernel.root_dir%/../src/{,*/,*/*/}*Bundle/Resources/views/**</argument>
+            </argument>
+        </service>
+    </services>
+</container>

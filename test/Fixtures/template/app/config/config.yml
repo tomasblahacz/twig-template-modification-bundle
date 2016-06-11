@@ -1,0 +1,7 @@
+framework:
+    secret: "secret"
+    templating:
+        engines: ['twig']
+    router:
+        resource: "routing.yml"
+        strict_requirements: ~
